@@ -50,6 +50,16 @@ def sala3 ():
 
 def sala4 ():
     clearConsole()
+    print("Estás en la sala 4")
+    print("Ves puertas en el Este, Norte o Sur ")
+    print("¿ En que dirección quieres  ir ?")
+    direc = input((" E, N o S"))
+    if direc == "E":
+        sala5()
+    elif direc == "N":
+        print("Subiria a la sala 7")
+    elif direc == "S":
+        sala2()
 
 def sala5 ():
     clearConsole()
