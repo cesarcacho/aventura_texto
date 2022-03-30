@@ -27,18 +27,53 @@ def sala1 ():
 
 def sala2 ():
     clearConsole()
+    print("Estás en la sala 2")
+    print("Ves puertas en el Norte y Este ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" N o E"))
+    if direc == "N":
+        sala4()
+    elif direc == "E":
+        sala1()
+
 
 def sala3 ():
     clearConsole()
+    print("Estás en la sala 3")
+    print("Ves puertas en el Norte y Oste ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" N o O"))
+    if direc == "N":
+        sala6()
+    elif direc == "O":
+        sala1()
 
 def sala4 ():
     clearConsole()
 
 def sala5 ():
     clearConsole()
+    print("Estás en la sala 5")
+    print("Ves puertas en el Este, Oeste o Sur ")
+    print("¿ En que dirección quieres  ir ?")
+    direc = input((" E, O o S"))
+    if direc == "E":
+        sala6()
+    elif direc == "O":
+        sala4()
+    elif direc == "S":
+        sala1()
 
 def sala6 ():
     clearConsole()
+    print("Estás en la sala 6")
+    print("Ves puertas en el Oeste y Sur ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" O o S"))
+    if direc == "O":
+        sala5()
+    elif direc == "S":
+        sala3()
 
 def entrada():
     clearConsole()
@@ -50,6 +85,7 @@ def entrada():
     print("|      |")
     print("|  E   |")
     print("|__/___|")
+    print("")
     direc = input((" N ó S"))
     if direc == "N":
         sala1()
@@ -76,10 +112,11 @@ for num in range (10):
 
 
 for num in range (5):
-    print("The quest for directasa, The Videojocco")
+    
     bolita = "x"
     espacio = " "
     for desliz in range (25):
+        print("The quest for directasa, The Videojocco")
         if desliz == 0:
             mostrar = espacio + bolita 
         else:
