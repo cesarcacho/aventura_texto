@@ -141,20 +141,20 @@ def entrada():
 
 def eleccion_jugador(respuesta):
     if respuesta == "Alex":
-        jugador["nombre","Alex"]
-        jugador["vida",5]
-        jugador["fuerza",10]
-        jugador["escudo",10]
+        jugador["nombre"] = "Alex"
+        jugador["vida"] = 5
+        jugador["fuerza"] = 10
+        jugador["escudo"] = 10
     elif respuesta == "Cesar":
-        jugador["nombre","Cesar"]
-        jugador["vida",5]
-        jugador["fuerza",12]
-        jugador["escudo",8]
+        jugador["nombre"] = "Cesar"
+        jugador["vida"] = 5
+        jugador["fuerza"] = 8
+        jugador["escudo"] = 12
     elif respuesta == "Marta":
-        jugador["nombre","Martis"]
-        jugador["vida",5]
-        jugador["fuerza",12]
-        jugador["escudo",8]
+        jugador["nombre"] = "Martis"
+        jugador["vida"] = 5
+        jugador["fuerza"] = 12
+        jugador["escudo"] = 8
 
 clearConsole()
 
@@ -188,11 +188,13 @@ for num in range (3):
 
 print("La DIRECTASA LA ROBÓ UN MANDRIL LUNAR")
 print("La ha escondido en el fondo de una mazmorra")
-print("¿ Quieres ir a buscarla ?")
-print("¿Que personaje quieres ser?")
-respuesta = input("Alex, Cesar o Marta")
+print("¿Que personaje quieres ser? ")
+print("")
+respuesta = input("Alex, Cesar o Marta ")
 eleccion_jugador(respuesta)
+print(jugador)
 
+print("¿ Quieres ir a buscarla, ", jugador["nombre"], "?")
 respuesta = input(("si/no " ))
 if respuesta == "S":
     print("Adelante")
