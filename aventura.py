@@ -1,15 +1,26 @@
 #aventura de texto https://www.youtube.com/watch?v=NIkXMrVjhiY
 
+from sqlite3 import enable_shared_cache
 import time
 import os
 
+from pygtkcompat import enable_vte
+
 jugador = {}
 
-def clearConsole():
+def clearConsole ():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
         command = 'cls'
     os.system(command)
+
+def baul ():
+    print("Hay un baúl en la habitación")
+    print("¿Quieres abrirlo?")
+
+
+def enemigo ():
+    print("Un enemigo en la sala !!!!!")
 
 def sala1 ():
     clearConsole()
@@ -140,21 +151,28 @@ def entrada():
         print("Cobarde!!!!! Juuuurrrllll")
 
 def eleccion_jugador(respuesta):
-    if respuesta == "Alex":
-        jugador["nombre"] = "Alex"
-        jugador["vida"] = 5
-        jugador["fuerza"] = 10
-        jugador["escudo"] = 10
-    elif respuesta == "Cesar":
-        jugador["nombre"] = "Cesar"
-        jugador["vida"] = 5
-        jugador["fuerza"] = 8
-        jugador["escudo"] = 12
-    elif respuesta == "Marta":
-        jugador["nombre"] = "Martis"
-        jugador["vida"] = 5
-        jugador["fuerza"] = 12
-        jugador["escudo"] = 8
+    correcto = False
+    while correcto == False:
+        if respuesta == "Alex":
+            jugador["nombre"] = "Alex el CRACK"
+            jugador["vida"] = 5
+            jugador["fuerza"] = 10
+            jugador["escudo"] = 10
+            correcto = True
+        elif respuesta == "Cesar":
+            jugador["nombre"] = "Cesar el gordito"
+            jugador["vida"] = 5
+            jugador["fuerza"] = 8
+            jugador["escudo"] = 12
+            correcto = True
+        elif respuesta == "Marta":
+            jugador["nombre"] = "Martis the BOSS"
+            jugador["vida"] = 5
+            jugador["fuerza"] = 12
+            jugador["escudo"] = 8
+            correcto = True
+        else:
+            respuesta = input("Alex, Cesar o Marta ")
 
 clearConsole()
 
@@ -195,7 +213,7 @@ eleccion_jugador(respuesta)
 print(jugador)
 
 print("¿ Quieres ir a buscarla, ", jugador["nombre"], "?")
-respuesta = input(("si/no " ))
+respuesta = input((" S / N " ))
 if respuesta == "S":
     print("Adelante")
     entrada()
