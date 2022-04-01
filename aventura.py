@@ -1,30 +1,110 @@
 #aventura de texto https://www.youtube.com/watch?v=NIkXMrVjhiY
 
-from sqlite3 import enable_shared_cache
 import time
 import os
-
-from pygtkcompat import enable_vte
+import random
 
 jugador = {}
 
-def clearConsole ():
+# def clearConsole ():
+#     command = 'clear'
+#     if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
+#         command = 'cls'
+#     os.system(command)
+#     statusJugador()
+
+def statusJugador ():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
         command = 'cls'
     os.system(command)
+    print("Jugador: ", jugador["nombre"]," Vida: ", jugador["vida"])
+    print("Fuerza: ", jugador["fuerza"]," Escudo: ", jugador["escudo"])
+    print("Fuerza: ", jugador["monedas"]," Llave: ", jugador["llave"])
 
 def baul ():
+    listaBaul=["vida","moneda","escudo","fuerza",""]
     print("Hay un baúl en la habitación")
     print("¿Quieres abrirlo?")
+    respuesta = input((" Si o No "))
+    if respuesta == "S":
+        objeto = listaBaul[random.randint(0,4)]
+        if objeto == "vida":
+            print("Has obtenido un corazón de vida")
+            jugador["vida"] = jugador["vida"] + 1
+        elif objeto == "moneda":
+            print("Has obtenido un doblón de oro")
+            jugador["monedas"] = jugador["monedas"] + 1
+        elif objeto == "escudo":
+            print("Has obtenido un remache de acero para el escudo")
+            jugador["escudo"] = jugador["escudo"] + 1
+        elif objeto == "fuerza":
+            print("Has obtenido un bote de fideos chinos")
+            jugador["fuerza"] = jugador["fuerza"] + 1
+        else:
+            print("El baúl está vacío")
 
+    time.sleep(2)
+
+def BOSS ():
+    dadosEne = random.randint(1,6)
+    dadosEne = dadosEne + random.randint(1,6)
+    if ( jugador["fuerza"] + jugador["escudo"] ) > 15:
+        dadosJug = random.randint(1,6)
+        dadosJug = dadosJug + random.randint(1,6)
+    else:
+        dadosJug = random.randint(1,6)
+    print(jugador["nombre"], " = ", dadosJug, " VS Enemigo = ", dadosEne )
+    if dadosJug > dadosEne:
+        print("Has ganado !!!!")
+        print("Has conseguido una moneda")
+        jugador["monedas"] = jugador["monedas"] + 1
+    elif dadosEne > dadosJug:
+        print("Has PERDIDO!!!!")
+        print("Te quita un corazón de vida")
+        jugador["vida"] = jugador["vida"] - 1
+    elif dadosEne == dadosJug:
+        print("EMPATE!!!! Ha sido una lucha encarnizada")
+        print("Has sufrido daño, bajas un punto de fuereza y vida")
+        jugador["fuerza"] = jugador["fuerza"] - 1
+        jugador["escudo"] =jugador["escudo"] - 1
 
 def enemigo ():
     print("Un enemigo en la sala !!!!!")
+    print("¿Quieres enfrentarte a él?")
+    respuesta = input((" Si o No"))
+    if respuesta == "S":
+        dadosEne = random.randint(1,6)
+        if ( jugador["fuerza"] + jugador["escudo"] ) > 15:
+            dadosJug = random.randint(1,6)
+            dadosJug = dadosJug + random.randint(1,6)
+        else:
+            dadosJug = random.randint(1,6)
+        print(jugador["nombre"], " = ", dadosJug, " VS Enemigo = ", dadosEne )
+        if dadosJug > dadosEne:
+            print("Has ganado !!!!")
+            print("Has conseguido una moneda")
+            jugador["monedas"] = jugador["monedas"] + 1
+        elif dadosEne > dadosJug:
+            print("Has PERDIDO!!!!")
+            print("Te quita un corazón de vida")
+            jugador["vida"] = jugador["vida"] - 1
+        elif dadosEne == dadosJug:
+            print("EMPATE!!!! Ha sido una lucha encarnizada")
+            print("Has sufrido daño, bajas un punto de fuereza y vida")
+            jugador["fuerza"] = jugador["fuerza"] - 1
+            jugador["escudo"] =jugador["escudo"] - 1
+    else:
+        print("Sal corriendoooo!!!!!")
 
 def sala1 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 1")
+    # print("Hay un baúl en la sala, ¿quieres abrirlo?")
+    # respuesta = input((" Si o No : "))
+    # if respuesta == "S":
+    baul()
+    statusJugador()
     print("Ves puertas en el Norte, Sur, Este y Oeste")
     print("¿ En que dirección quieres ir ?")
     direc = input((" N, S, E o O"))
@@ -38,8 +118,10 @@ def sala1 ():
         sala2()
 
 def sala2 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 2")
+    enemigo()
+    statusJugador()
     print("Ves puertas en el Norte y Este ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" N o E"))
@@ -50,7 +132,7 @@ def sala2 ():
 
 
 def sala3 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 3")
     print("Ves puertas en el Norte y Oste ")
     print("¿ En que dirección quieres ir ?")
@@ -61,7 +143,7 @@ def sala3 ():
         sala1()
 
 def sala4 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 4")
     print("Ves puertas en el Este, Norte o Sur ")
     print("¿ En que dirección quieres  ir ?")
@@ -74,7 +156,7 @@ def sala4 ():
         sala2()
 
 def sala5 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 5")
     print("Ves puertas en el Este, Oeste o Sur ")
     print("¿ En que dirección quieres  ir ?")
@@ -87,8 +169,9 @@ def sala5 ():
         sala1()
 
 def sala6 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 6")
+    llave()
     print("Ves puertas en el Oeste y Sur ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" O o S"))
@@ -98,8 +181,9 @@ def sala6 ():
         sala3()
 
 def sala7 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 7")
+    statusJugador()
     print("Ves puertas en el Este y Sur ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" E o S"))
@@ -109,7 +193,7 @@ def sala7 ():
         sala4()
 
 def sala8 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 8")
     print("Ves puertas en el Oeste, Norte y Este ")
     print("¿ En que dirección quieres ir ?")
@@ -122,7 +206,7 @@ def sala8 ():
         print("Sala del foso")
 
 def sala9 ():
-    clearConsole()
+    statusJugador()
     print("Estás en la sala 9")
     print("Ves puertas en el Oste y Norte ")
     print("¿ En que dirección quieres ir ?")
@@ -130,11 +214,23 @@ def sala9 ():
     if direc == "O":
         sala8()
     elif direc == "N":
-        print("Sala del BOSS final")
+        salaBOSS()
 
+def salaBOSS ():
+    statusJugador()
+    print("Has llegado a la guarida del mandril Jefaso")
+    print("Hay una puerta cerrada con llave")
+    if jugador["llave"] == True:
+        print("Veo que tienes una llave en tu bolsillo")
+        print("Eres un maquinilla y puedes pasar a verte las caras con él")
+        BOSS()
+
+
+ 
+        
 
 def entrada():
-    clearConsole()
+    statusJugador()
     print("Estás dentro")
     print("Ves puertas al norte y sur")
     print("¿Por cual quieres pasar ?")
@@ -158,59 +254,77 @@ def eleccion_jugador(respuesta):
             jugador["vida"] = 5
             jugador["fuerza"] = 10
             jugador["escudo"] = 10
+            jugador["monedas"] = 0
+            jugador["llave"] = False
             correcto = True
         elif respuesta == "Cesar":
             jugador["nombre"] = "Cesar el gordito"
             jugador["vida"] = 5
             jugador["fuerza"] = 8
             jugador["escudo"] = 12
+            jugador["monedas"] = 0
+            jugador["llave"] = False
             correcto = True
         elif respuesta == "Marta":
             jugador["nombre"] = "Martis the BOSS"
             jugador["vida"] = 5
             jugador["fuerza"] = 12
             jugador["escudo"] = 8
+            jugador["monedas"] = 0
+            jugador["llave"] = False
             correcto = True
         else:
             respuesta = input("Alex, Cesar o Marta ")
 
-clearConsole()
+def llave ():
+    print("Has encontrado una llave tirada en el suelo")
+    print("¿Para que leches será?")
+    print("¿La quieres pillar para la buchaca")
+    respuesta = input((" Si o No "))
+    if respuesta == "S":
+        jugador["llave"] = True
+        statusJugador()
+    else:
+        print("Tú veras... si quieres la switch.. yo no digo nahh")
 
-# for num in range (10):
-#     time.sleep(0.5)
-#     clearConsole()
-#     if num % 2 == 0:
+# clearConsole()
+
+print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
+print("        X   X   X   X   X   X   X   X   ")
+print("        X   XXXXX   XXXXX   XXXXX   X   ")
+print("        X                           X   ")
+print("        X                           X   ")
+print("         X                         X    ")
+print("          X                       X     ")
+print("           X                     X      ")
+print("           X       ******        X      ")
+print("    O      X      *  **  *      X       ")
+print("   /X\     X     *   **   *     X       ")
+print("  / X \    X     *   **   *     X       ")
+print("    X      X     *   **   *     X       ")
+print("   / \     X     *   **   *     X       ")
+
+
+# for num in range (3):
+#     bolita = "******"
+#     espacio = " "
+#     for desliz in range (30):
 #         print("The quest for directasa, The Videojocco")
-#         print("     X X    ")
-#         print("      X     ")
-#         print("     X X    ")
-#     else:
-#         print("The quest for directasa, The Videojocco")
-#         print("      X     ")
-#         print("     X X    ")
-#         print("      X     ")
+#         if desliz == 0:
+#             mostrar = espacio + bolita 
+#         else:
+#             mostrar = espacio + mostrar
+#         print(mostrar)
+#         time.sleep(0.05)
+#         clearConsole()
 
-
-for num in range (3):
-    bolita = "******"
-    espacio = " "
-    for desliz in range (30):
-        print("The quest for directasa, The Videojocco")
-        if desliz == 0:
-            mostrar = espacio + bolita 
-        else:
-            mostrar = espacio + mostrar
-        print(mostrar)
-        time.sleep(0.05)
-        clearConsole()
-
-print("La DIRECTASA LA ROBÓ UN MANDRIL LUNAR")
+print("La switch la robó un MANDRIL LUNAR")
 print("La ha escondido en el fondo de una mazmorra")
 print("¿Que personaje quieres ser? ")
 print("")
 respuesta = input("Alex, Cesar o Marta ")
 eleccion_jugador(respuesta)
-print(jugador)
+# print(jugador)
 
 print("¿ Quieres ir a buscarla, ", jugador["nombre"], "?")
 respuesta = input((" S / N " ))
