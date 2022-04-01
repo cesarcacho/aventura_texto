@@ -96,6 +96,7 @@ def enemigo ():
             jugador["escudo"] =jugador["escudo"] - 1
     else:
         print("Sal corriendoooo!!!!!")
+    time.sleep(3)
 
 def sala1 ():
     statusJugador()
@@ -134,6 +135,7 @@ def sala2 ():
 def sala3 ():
     statusJugador()
     print("Estás en la sala 3")
+    enemigo()
     print("Ves puertas en el Norte y Oste ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" N o O"))
@@ -145,6 +147,7 @@ def sala3 ():
 def sala4 ():
     statusJugador()
     print("Estás en la sala 4")
+    enemigo()
     print("Ves puertas en el Este, Norte o Sur ")
     print("¿ En que dirección quieres  ir ?")
     direc = input((" E, N o S"))
