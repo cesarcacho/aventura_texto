@@ -5,30 +5,40 @@ import os
 import random
 
 jugador = {}
-
-# def clearConsole ():
-#     command = 'clear'
-#     if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
-#         command = 'cls'
-#     os.system(command)
-#     statusJugador()
-
-def statusJugador ():
+contJug = 0
+def clearConsole1 ():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
         command = 'cls'
     os.system(command)
-    print("Jugador: ", jugador["nombre"]," Vida: ", jugador["vida"])
-    print("Fuerza: ", jugador["fuerza"]," Escudo: ", jugador["escudo"])
-    print("Fuerza: ", jugador["monedas"]," Llave: ", jugador["llave"])
+#     statusJugador()
+
+def statusJugador ():
+    contJug = contJug + 1
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
+        command = 'cls'
+    os.system(command)
+    if contJug % 2 == 0:
+        jugador["vida"] = jugador["vida"] -1 
+    print("Jugador: ", jugador["nombre"] )
+    print("Vida: ", jugador["vida"])
+    print("Fuerza: ", jugador["fuerza"],"           Escudo: ", jugador["escudo"])
+    print("Monedas: ", jugador["monedas"],"         Llave: ", jugador["llave"])
+
+    if jugador["vida"] <= 3:
+        print("Estás muy débil, si no comes procederas a la MORISION")
+    elif jugador["vida"] == 0:
+        print("MORISIÓN COMPLETADA.... (Será que no te avisé)")
+    time.sleep(2)
 
 def baul ():
-    listaBaul=["vida","moneda","escudo","fuerza",""]
+    listaBaul=["vida","moneda","vida","escudo","fuerza","vida",""]
     print("Hay un baúl en la habitación")
     print("¿Quieres abrirlo?")
     respuesta = input((" Si o No "))
     if respuesta == "S":
-        objeto = listaBaul[random.randint(0,4)]
+        objeto = listaBaul[random.randint(0,6)]
         if objeto == "vida":
             print("Has obtenido un corazón de vida")
             jugador["vida"] = jugador["vida"] + 1
@@ -65,9 +75,11 @@ def BOSS ():
         jugador["vida"] = jugador["vida"] - 1
     elif dadosEne == dadosJug:
         print("EMPATE!!!! Ha sido una lucha encarnizada")
-        print("Has sufrido daño, bajas un punto de fuereza y vida")
+        print("Has sufrido daño, bajas un punto de fuerza, escudo y vida")
         jugador["fuerza"] = jugador["fuerza"] - 1
         jugador["escudo"] =jugador["escudo"] - 1
+        jugador["vida"] = jugador["vida"] -1
+        time.sleep(5)
 
 def enemigo ():
     print("Un enemigo en la sala !!!!!")
@@ -75,7 +87,7 @@ def enemigo ():
     respuesta = input((" Si o No"))
     if respuesta == "S":
         dadosEne = random.randint(1,6)
-        if ( jugador["fuerza"] + jugador["escudo"] ) > 15:
+        if ( jugador["fuerza"] + jugador["escudo"] ) > 10:
             dadosJug = random.randint(1,6)
             dadosJug = dadosJug + random.randint(1,6)
         else:
@@ -91,9 +103,10 @@ def enemigo ():
             jugador["vida"] = jugador["vida"] - 1
         elif dadosEne == dadosJug:
             print("EMPATE!!!! Ha sido una lucha encarnizada")
-            print("Has sufrido daño, bajas un punto de fuereza y vida")
+            print("Has sufrido daño, bajas un punto de fuerza, escudo y vida")
             jugador["fuerza"] = jugador["fuerza"] - 1
             jugador["escudo"] =jugador["escudo"] - 1
+            jugador["vida"] = jugador["vida"] -1
     else:
         print("Sal corriendoooo!!!!!")
     time.sleep(3)
@@ -101,6 +114,7 @@ def enemigo ():
 def sala1 ():
     statusJugador()
     print("Estás en la sala 1")
+    print("")
     # print("Hay un baúl en la sala, ¿quieres abrirlo?")
     # respuesta = input((" Si o No : "))
     # if respuesta == "S":
@@ -121,6 +135,7 @@ def sala1 ():
 def sala2 ():
     statusJugador()
     print("Estás en la sala 2")
+    print("")
     enemigo()
     statusJugador()
     print("Ves puertas en el Norte y Este ")
@@ -135,7 +150,9 @@ def sala2 ():
 def sala3 ():
     statusJugador()
     print("Estás en la sala 3")
+    print("")
     enemigo()
+    baul()
     print("Ves puertas en el Norte y Oste ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" N o O"))
@@ -147,6 +164,7 @@ def sala3 ():
 def sala4 ():
     statusJugador()
     print("Estás en la sala 4")
+    print("")
     enemigo()
     print("Ves puertas en el Este, Norte o Sur ")
     print("¿ En que dirección quieres  ir ?")
@@ -161,6 +179,8 @@ def sala4 ():
 def sala5 ():
     statusJugador()
     print("Estás en la sala 5")
+    print("")
+    baul()
     print("Ves puertas en el Este, Oeste o Sur ")
     print("¿ En que dirección quieres  ir ?")
     direc = input((" E, O o S"))
@@ -174,6 +194,7 @@ def sala5 ():
 def sala6 ():
     statusJugador()
     print("Estás en la sala 6")
+    print("")
     llave()
     print("Ves puertas en el Oeste y Sur ")
     print("¿ En que dirección quieres ir ?")
@@ -186,7 +207,9 @@ def sala6 ():
 def sala7 ():
     statusJugador()
     print("Estás en la sala 7")
-    statusJugador()
+    print("")
+    enemigo()
+    baul()
     print("Ves puertas en el Este y Sur ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" E o S"))
@@ -198,6 +221,7 @@ def sala7 ():
 def sala8 ():
     statusJugador()
     print("Estás en la sala 8")
+    print("")
     print("Ves puertas en el Oeste, Norte y Este ")
     print("¿ En que dirección quieres ir ?")
     direc = input((" O, N o E"))
@@ -205,8 +229,12 @@ def sala8 ():
         sala9()
     elif direc == "O":
         sala7()
-    elif direc == "":
+    elif direc == "N":
         print("Sala del foso")
+        print("OOOOHHHHHH")
+        print("¡¡¡¡ CASPITA !!!!! He caído en un foso y me encuentro en la ENTRADA")
+        time.sleep(3)
+        entrada()
 
 def sala9 ():
     statusJugador()
@@ -254,7 +282,7 @@ def eleccion_jugador(respuesta):
     while correcto == False:
         if respuesta == "Alex":
             jugador["nombre"] = "Alex el CRACK"
-            jugador["vida"] = 5
+            jugador["vida"] = 10
             jugador["fuerza"] = 10
             jugador["escudo"] = 10
             jugador["monedas"] = 0
@@ -262,7 +290,7 @@ def eleccion_jugador(respuesta):
             correcto = True
         elif respuesta == "Cesar":
             jugador["nombre"] = "Cesar el gordito"
-            jugador["vida"] = 5
+            jugador["vida"] = 10
             jugador["fuerza"] = 8
             jugador["escudo"] = 12
             jugador["monedas"] = 0
@@ -270,7 +298,7 @@ def eleccion_jugador(respuesta):
             correcto = True
         elif respuesta == "Marta":
             jugador["nombre"] = "Martis the BOSS"
-            jugador["vida"] = 5
+            jugador["vida"] = 10
             jugador["fuerza"] = 12
             jugador["escudo"] = 8
             jugador["monedas"] = 0
@@ -292,20 +320,40 @@ def llave ():
 
 # clearConsole()
 
-print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
-print("        X   X   X   X   X   X   X   X   ")
-print("        X   XXXXX   XXXXX   XXXXX   X   ")
-print("        X                           X   ")
-print("        X                           X   ")
-print("         X                         X    ")
-print("          X                       X     ")
-print("           X                     X      ")
-print("           X       ******        X      ")
-print("    O      X      *  **  *      X       ")
-print("   /X\     X     *   **   *     X       ")
-print("  / X \    X     *   **   *     X       ")
-print("    X      X     *   **   *     X       ")
-print("   / \     X     *   **   *     X       ")
+
+for num in range(1,5):
+    time.sleep(1)
+    clearConsole1()
+    if num % 2 == 0:
+        print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
+        print("        X   X   X   X   X   X   X   X   ")
+        print("        X   XXXXX   XXXXX   XXXXX   X   ")
+        print("        X                           X   ")
+        print("        X                           X   ")
+        print("         X                         X    ")
+        print("          X                       X     ")
+        print("           X                     X      ")
+        print("           X       ******       X       ")
+        print("    O      X      *  **  *      X       ")
+        print("   /X\     X     *   **   *     X       ")
+        print("  / X \    X     *   **   *     X       ")
+        print("    X      X     *   **   *     X       ")
+        print("   / \     X     *   **   *     X       ")
+    else:
+        print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
+        print("        X   X   X   X   X   X   X   X   ")
+        print("        X   XXXXX   XXXXX   XXXXX   X   ")
+        print("        X                           X   ")
+        print("        X                           X   ")
+        print("         X                         X    ")
+        print("          X                       X     ")
+        print("           X                     X      ")
+        print("           X       ******       X       ")
+        print("  \ O /    X      *  **  *      X       ")
+        print("   \X/     X     *   **   *     X       ")
+        print("    X      X     *   **   *     X       ")
+        print("    X      X     *   **   *     X       ")
+        print("   / \     X     *   **   *     X       ")
 
 
 # for num in range (3):
