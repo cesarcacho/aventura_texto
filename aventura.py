@@ -1,5 +1,6 @@
 # aventura de texto https://www.youtube.com/watch?v=NIkXMrVjhiY
 
+from glob import escape
 import time
 import os
 import random
@@ -97,28 +98,51 @@ def enemigo():
     print("¿Quieres enfrentarte a él?")
     respuesta = input((" Si o No"))
     if respuesta == "S":
-        dadosEne = random.randint(1, 6)
-        if (jugador["fuerza"] + jugador["escudo"]) > 10:
-            dadosJug = random.randint(1, 6)
-            dadosJug = dadosJug + random.randint(1, 6)
-        else:
-            dadosJug = random.randint(1, 6)
-        print(jugador["nombre"], " = ", dadosJug, " VS Enemigo = ", dadosEne)
-        if dadosJug > dadosEne:
-            print("Has ganado !!!!")
-            print("Has conseguido una moneda")
-            jugador["monedas"] = jugador["monedas"] + 1
-            jugador["vida"] = jugador["vida"] + 1
-        elif dadosEne > dadosJug:
-            print("Has PERDIDO!!!!")
-            print("Te quita un corazón de vida")
-            jugador["vida"] = jugador["vida"] - 1
-        elif dadosEne == dadosJug:
-            print("EMPATE!!!! Ha sido una lucha encarnizada")
-            print("Has sufrido daño, bajas un punto de fuerza, escudo y vida")
-            jugador["fuerza"] = jugador["fuerza"] - 1
-            jugador["escudo"] = jugador["escudo"] - 1
-            jugador["vida"] = jugador["vida"] - 1
+        vidaBicho = int(random.randint(5,30))
+        while vidaBicho >= 0:
+            dadosEne = random.randint(1, 6)
+            dadosJug = int(jugador["fuerza"] / 2)
+            dadosJug = int(dadosJug + jugador["escudo"] / 3)
+            
+            # if (jugador["fuerza"] + jugador["escudo"]) > 10:
+            #     dadosJug = random.randint(1, 6)
+            #     dadosJug = dadosJug + random.randint(1, 6)
+            # else:
+            #     dadosJug = random.randint(1, 6)
+            print(jugador["nombre"], " = ", dadosJug, " VS Enemigo = ", dadosEne)
+            if dadosJug > dadosEne:
+                vidaBicho = vidaBicho - jugador["fuerza"] - jugador["escudo"]
+                if vidaBicho >= 0:
+                    print("Le has quitado: ", jugador["fuerza"] + jugador["escudo"], "de vida")
+                    print("Le quedan ", vidaBicho, "puntos de vida")
+                else:
+                    print("Has ganado !!!!")
+                    print("Has conseguido una moneda")
+                    jugador["monedas"] = jugador["monedas"] + 1
+                    jugador["vida"] = jugador["vida"] + 1
+            elif dadosEne > dadosJug:
+                print("Has PERDIDO!!!!")
+                if jugador["vida"] > 0:
+                    if jugador["escudo"] > 0:   
+                        print("Te quita: ", vidaBicho, "puntos de escudo")
+                        diff = jugador["escudo"] - vidaBicho 
+                        if diff > 0:
+                            jugador["escudo"] - diff
+                        else:
+                            jugador["escudo"] = 0
+                            jugador["vida"] = jugador["vida"] + diff
+                    else:
+                        jugador["vida"] = jugador["vida"] - vidaBicho
+                        if jugador["vida"] <= 0:
+                            return
+
+            elif dadosEne == dadosJug:
+                print("EMPATE!!!! Ha sido una lucha encarnizada")
+                print("Has sufrido daño, bajas un punto de fuerza, escudo y vida")
+                jugador["fuerza"] = jugador["fuerza"] - 1
+                jugador["escudo"] = jugador["escudo"] - 1
+                jugador["vida"] = jugador["vida"] - 1
+                vidaBicho = vidaBicho - 5
     else:
         print("Sal corriendoooo!!!!!")
     time.sleep(3)
