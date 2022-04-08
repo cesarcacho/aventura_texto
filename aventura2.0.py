@@ -1,36 +1,72 @@
 import random
 import time
+from weakref import finalize
 
 jugador = {}
 
-def enemigo(num):
-    print("Hay un enemigo en la sala!!!! con ", num, " de vida")
+def enemigo(vida, fuerza):
+    print("Hay un enemigo en la sala!!!! con ", vida, " de vida")
     print("Preparate para luchar o salir corriendo")
     respuesta = ""
     while respuesta != 'S' and respuesta != 'N':
         respuesta = input("¿Quieres luchar con él? Si o No?")
     if respuesta == 'S':
-        while num > 0 and jugador["fuerza"] > 0:
-            print("vida enemiga: ", num, " Vida jugador: ", jugador["fuerza"])
-            respuesta = input(("Quieres atacar o rendirte?"))
-            if respuesta == 'atacar':
-                if (jugador["fuerza"] + jugador["escudo"]) > num:
-                    num -= jugador["fuerza"]
-                else:
-                    jugador["monedas"] = jugador["monedas"] - 1
-                print("vida enemiga: ", num, " Vida jugador: ", jugador["fuerza"])
-                time.sleep(1)
+        
+        print("vida enemiga: ", vida, " Vida jugador: ", jugador["fuerza"])
+        dadosJ = 0
+        dadosE = 0
+        if jugador["escudo"] > 0:
+            dadosJ = int(jugador["escudo"] / 2)
+        if jugador["fuerza"] > 0:
+            dadosJ += jugador["fuerza"]
+        dadosE = fuerza 
+            
+        print("juegas con: ", dadosJ, "y el bicho juega con: ", dadosE)
+        
+        while vida > 0 and jugador["vida"] > 0:
+            tiradas = max(dadosE,dadosJ)
+            print("tiradas", tiradas)
+            finalJ = 0
+            finalE = 0
+            
+            for num in range (1, tiradas):
+                if dadosJ >= num:
+                    finalJ += random.randint(1,6)
+                if dadosE >= num:
+                    finalE += random.randint(1,6)
+            print("Tu jugada con ", dadosJ, " es un total de: ", finalJ)
+            print("Jugada Enemigo con ", dadosE, " es un total de: ", finalE)
+            time.sleep(5)
+            if finalJ == finalE:
+                print("Empate, se restará 3 puntos a cada uno (escudo,fuerza o vida")
+                restaPuntos(3,"A",vida,fuerza)
+            elif finalJ > finalE:
+                print("Has Ganado, Le quitas 5 puntos (vida)")
+                restaPuntos(3,"E",vida,fuerza)
             else:
-                print("Uff por los pelos")
+                print("Has perdido, te resta 5 puntos (escudo, fuerza o vida")
+                restaPuntos(3,"J",vida,fuerza)
+            vida = 0
+        return
     else:
         print("cobarde!!!!!! sales huyendo de mi")
 
+def restaPuntos(puntos, quien, vida, fuerza):
+    if quien == "E":
+        vida -= puntos
+        jugador["escudo"] -= puntos
+    elif quien == "J":
+        jugador["escudo"] -= puntos
+    else:
+        vida -= puntos
+
 def entrada():
     print("Estás en la entrada")
-    num = random.randint(6,15)
-    print(num)
-    if num % 2 == 0:
-        enemigo(num)
+    vida = random.randint(6,15)
+    print(vida)
+    if vida % 2 == 0:
+        fuerza = random.randint(1,10)
+        enemigo(vida, fuerza)
 
 def eleccion_jugador(respuesta):
     correcto = False
