@@ -1,8 +1,14 @@
 import random
 import time
-from weakref import finalize
+import os
 
 jugador = {}
+
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # Si el sistema es Windows, se usa cls
+        command = 'cls'
+    os.system(command)
 
 def enemigo(vida, fuerza):
     print("Hay un enemigo en la sala!!!! con ", vida, " de vida")
@@ -11,7 +17,7 @@ def enemigo(vida, fuerza):
     while respuesta != 'S' and respuesta != 'N':
         respuesta = input("¿Quieres luchar con él? Si o No?")
     if respuesta == 'S':
-        
+        clearConsole()
         print("vida enemiga: ", vida, " Vida jugador: ", jugador["fuerza"])
         dadosJ = 0
         dadosE = 0
@@ -24,6 +30,7 @@ def enemigo(vida, fuerza):
         print("juegas con: ", dadosJ, "y el bicho juega con: ", dadosE)
         
         while vida > 0 and jugador["vida"] > 0:
+            print("vida enemiga: ", vida, " Vida jugador: ", jugador["vida"], "fuerza Jugador: ", jugador["fuerza"])
             tiradas = max(dadosE,dadosJ)
             print("tiradas", tiradas)
             finalJ = 0
@@ -39,26 +46,31 @@ def enemigo(vida, fuerza):
             time.sleep(5)
             if finalJ == finalE:
                 print("Empate, se restará 3 puntos a cada uno (escudo,fuerza o vida")
-                restaPuntos(3,"A",vida,fuerza)
+                # restaPuntos(3,"A",vida,fuerza)
+                vida -= 3
+                if jugador["escudo"] > 0:
+                    jugador["escudo"] -= 3
+                    if jugador["escudo"] < 0:
+                        jugador["vida"] -= (jugador["escudo"] * (-1))
+                else:
+                    jugador["vida"] -= 3        
             elif finalJ > finalE:
                 print("Has Ganado, Le quitas 5 puntos (vida)")
-                restaPuntos(3,"E",vida,fuerza)
+                # restaPuntos(5,"E",vida,fuerza)
+                vida -= 5
             else:
                 print("Has perdido, te resta 5 puntos (escudo, fuerza o vida")
-                restaPuntos(3,"J",vida,fuerza)
-            vida = 0
-        return
+                # restaPuntos(5,"J",vida,fuerza)
+                if jugador["escudo"] > 0:
+                    jugador["escudo"] -= 5
+                    if jugador["escudo"] < 0:
+                        jugador["vida"] -= (jugador["escudo"] * (-1))
+                else:
+                    jugador["vida"] -= 5 
+            print("vida enemiga: ", vida, " Vida jugador: ", jugador["vida"], "fuerza Jugador: ", jugador["fuerza"])
+
     else:
         print("cobarde!!!!!! sales huyendo de mi")
-
-def restaPuntos(puntos, quien, vida, fuerza):
-    if quien == "E":
-        vida -= puntos
-        jugador["escudo"] -= puntos
-    elif quien == "J":
-        jugador["escudo"] -= puntos
-    else:
-        vida -= puntos
 
 def entrada():
     print("Estás en la entrada")
