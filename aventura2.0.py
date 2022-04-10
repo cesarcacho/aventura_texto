@@ -30,6 +30,7 @@ def enemigo(vida, fuerza):
         print("juegas con: ", dadosJ, "y el bicho juega con: ", dadosE)
         
         while vida > 0 and jugador["vida"] > 0:
+            clearConsole()
             print("vida enemiga: ", vida, " Vida jugador: ", jugador["vida"], "fuerza Jugador: ", jugador["fuerza"])
             tiradas = max(dadosE,dadosJ)
             print("tiradas", tiradas)
@@ -67,18 +68,175 @@ def enemigo(vida, fuerza):
                         jugador["vida"] -= (jugador["escudo"] * (-1))
                 else:
                     jugador["vida"] -= 5 
-            print("vida enemiga: ", vida, " Vida jugador: ", jugador["vida"], "fuerza Jugador: ", jugador["fuerza"])
+        print("vida enemiga: ", vida, " Vida jugador: ", jugador["vida"], "fuerza Jugador: ", jugador["fuerza"])
+        if jugador["vida"] <= 0:
+            print("Has perdido, has causado morisión por el bicho bola")
+            exit
 
     else:
         print("cobarde!!!!!! sales huyendo de mi")
 
 def entrada():
     print("Estás en la entrada")
-    vida = random.randint(6,15)
+    vida = random.randint(10,25)
     print(vida)
     if vida % 2 == 0:
-        fuerza = random.randint(1,10)
+        fuerza = random.randint(10,25)
         enemigo(vida, fuerza)
+
+def sala1():
+    #statusJugador(contJug)
+    print("Estás en la sala 1")
+    print("")
+    # print("Hay un baúl en la sala, ¿quieres abrirlo?")
+    # respuesta = input((" Si o No : "))
+    # if respuesta == "S":
+    baul()
+    #statusJugador(contJug)
+    print("Ves puertas en el Norte, Sur, Este y Oeste")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" N, S, E o O"))
+    if direc == "N":
+        sala5()
+    elif direc == "S":
+        entrada()
+    elif direc == "E":
+        sala3()
+    elif direc == "O":
+        sala2()
+
+
+def sala2():
+    #statusJugador(contJug)
+    print("Estás en la sala 2")
+    print("")
+    enemigo()
+    #statusJugador(contJug)
+    print("Ves puertas en el Norte y Este ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" N o E"))
+    if direc == "N":
+        sala4()
+    elif direc == "E":
+        sala1()
+
+
+def sala3():
+    #statusJugador(contJug)
+    print("Estás en la sala 3")
+    print("")
+    enemigo()
+    baul()
+    print("Ves puertas en el Norte y Oste ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" N o O"))
+    if direc == "N":
+        sala6()
+    elif direc == "O":
+        sala1()
+
+
+def sala4():
+    #statusJugador(contJug)
+    print("Estás en la sala 4")
+    print("")
+    enemigo()
+    print("Ves puertas en el Este, Norte o Sur ")
+    print("¿ En que dirección quieres  ir ?")
+    direc = input((" E, N o S"))
+    if direc == "E":
+        sala5()
+    elif direc == "N":
+        sala7()
+    elif direc == "S":
+        sala2()
+
+
+def sala5():
+    #statusJugador(contJug)
+    print("Estás en la sala 5")
+    print("")
+    baul()
+    print("Ves puertas en el Este, Oeste o Sur ")
+    print("¿ En que dirección quieres  ir ?")
+    direc = input((" E, O o S"))
+    if direc == "E":
+        sala6()
+    elif direc == "O":
+        sala4()
+    elif direc == "S":
+        sala1()
+
+
+def sala6():
+    #statusJugador(contJug)
+    print("Estás en la sala 6")
+    print("")
+    llave()
+    print("Ves puertas en el Oeste y Sur ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" O o S"))
+    if direc == "O":
+        sala5()
+    elif direc == "S":
+        sala3()
+
+
+def sala7():
+    #statusJugador(contJug)
+    print("Estás en la sala 7")
+    print("")
+    enemigo()
+    baul()
+    print("Ves puertas en el Este y Sur ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" E o S"))
+    if direc == "E":
+        sala8()
+    elif direc == "S":
+        sala4()
+
+
+def sala8():
+    #statusJugador(contJug)
+    print("Estás en la sala 8")
+    print("")
+    print("Ves puertas en el Oeste, Norte y Este ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" O, N o E"))
+    if direc == "E":
+        sala9()
+    elif direc == "O":
+        sala7()
+    elif direc == "N":
+        print("Sala del foso")
+        print("OOOOHHHHHH")
+        print("¡¡¡¡ CASPITA !!!!! He caído en un foso y me encuentro en la ENTRADA")
+        time.sleep(3)
+        entrada()
+
+
+def sala9():
+    #statusJugador(contJug)
+    print("Estás en la sala 9")
+    print("Ves puertas en el Oste y Norte ")
+    print("¿ En que dirección quieres ir ?")
+    direc = input((" O o N"))
+    if direc == "O":
+        sala8()
+    elif direc == "N":
+        salaBOSS()
+
+
+def salaBOSS():
+    #statusJugador(contJug)
+    print("Has llegado a la guarida del mandril Jefaso")
+    print("Hay una puerta cerrada con llave")
+    if jugador["llave"] == True:
+        print("Veo que tienes una llave en tu bolsillo")
+        print("Eres un maquinilla y puedes pasar a verte las caras con él")
+        BOSS()
+
 
 def eleccion_jugador(respuesta):
     correcto = False
