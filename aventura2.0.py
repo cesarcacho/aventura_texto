@@ -22,7 +22,7 @@ def baul():
             objeto = listaBaul[random.randint(0, 6)]
             if objeto == "vida":
                 print("Has obtenido un corazón de vida")
-                jugador["vida"] = jugador["vida"] + 3
+                jugador["vida"] = jugador["vida"] + 1
             elif objeto == "moneda":
                 print("Has obtenido un doblón de oro")
                 jugador["monedas"] = jugador["monedas"] + 1
@@ -30,7 +30,7 @@ def baul():
                 print("Has obtenido un remache de acero para el escudo")
                 jugador["escudo"] = jugador["escudo"] + 1
             elif objeto == "fuerza":
-                print("Has obtenido un bote de fideos chinos")
+                print("Has obtenido un bote de fideos chinos, estás más fuerte")
                 jugador["fuerza"] = jugador["fuerza"] + 1
             else:
                 print("El baúl está vacío")
@@ -195,11 +195,13 @@ def entrada():
     print("|  E   |")
     print("|__/___|")
     print("")
-    direc = input((" N ó S"))
-    if direc == "N":
-        sala1()
-    elif direc == "S":
-        print("Cobarde!!!!! Juuuurrrllll")
+    direc = ""
+    while direc != "N" and direc != "S":
+        direc = input((" N ó S"))
+        if direc == "N":
+            sala1()
+        elif direc == "S":
+            print("Cobarde!!!!! Juuuurrrllll")
 
 def sala1():
     print("")
@@ -214,15 +216,17 @@ def sala1():
         print("Estás en la sala 1")
         print("Ves puertas en el Norte, Sur, Este y Oeste")
         print("¿ En que dirección quieres ir ?")
-        direc = input((" N, S, E o O"))
-        if direc == "N":
-            sala5()
-        elif direc == "S":
-            entrada()
-        elif direc == "E":
-            sala3()
-        elif direc == "O":
-            sala2()
+        direc = ""
+        while direc != "N" and direc != "S" and direc != "E" and direc != "O":
+            direc = input((" N, S, E o O"))
+            if direc == "N":
+                sala5()
+            elif direc == "S":
+                entrada()
+            elif direc == "E":
+                sala3()
+            elif direc == "O":
+                sala2()
 
 
 def sala2():
@@ -239,11 +243,13 @@ def sala2():
         print("Estás en la sala 2")
         print("Ves puertas en el Norte y Este ")
         print("¿ En que dirección quieres ir ?")
-        direc = input((" N o E"))
-        if direc == "N":
-            sala4()
-        elif direc == "E":
-            sala1()
+        direc = ""
+        while direc != "N" and direc != "E":
+            direc = input((" N o E"))
+            if direc == "N":
+                sala4()
+            elif direc == "E":
+                sala1()
 
 
 def sala3():
@@ -259,11 +265,13 @@ def sala3():
         print("Estás en la sala 3")
         print("Ves puertas en el Norte y Oste ")
         print("¿ En que dirección quieres ir ?")
-        direc = input((" N o O"))
-        if direc == "N":
-            sala6()
-        elif direc == "O":
-            sala1()
+        direc = ""
+        while direc != "N" and direc != "O":
+            direc = input((" N o O"))
+            if direc == "N":
+                sala6()
+            elif direc == "O":
+                sala1()
 
 
 def sala4():
@@ -278,14 +286,16 @@ def sala4():
         estadoJugador()
         print("Estás en la sala 4")
         print("Ves puertas en el Este, Norte o Sur ")
-        print("¿ En que dirección quieres  ir ?")
-        direc = input((" E, N o S"))
-        if direc == "E":
-            sala5()
-        elif direc == "N":
-            sala7()
-        elif direc == "S":
-            sala2()
+        direc = ""
+        while direc != "E" and direc != "N" and direc != "S":
+            print("¿ En que dirección quieres  ir ?")
+            direc = input((" E, N o S"))
+            if direc == "E":
+                sala5()
+            elif direc == "N":
+                sala7()
+            elif direc == "S":
+                sala2()
 
 
 def sala5():
@@ -301,13 +311,15 @@ def sala5():
         print("Estás en la sala 5")
         print("Ves puertas en el Este, Oeste o Sur ")
         print("¿ En que dirección quieres  ir ?")
-        direc = input((" E, O o S"))
-        if direc == "E":
-            sala6()
-        elif direc == "O":
-            sala4()
-        elif direc == "S":
-            sala1()
+        direc = ""
+        while direc != "E" and direc != "S" and direc != "O":
+            direc = input((" E, O o S"))
+            if direc == "E":
+                sala6()
+            elif direc == "O":
+                sala4()
+            elif direc == "S":
+                sala1()
 
 
 def sala6():
@@ -318,11 +330,13 @@ def sala6():
     print("Estás en la sala 6")
     print("Ves puertas en el Oeste y Sur ")
     print("¿ En que dirección quieres ir ?")
-    direc = input((" O o S"))
-    if direc == "O":
-        sala5()
-    elif direc == "S":
-        sala3()
+    direc = ""
+    while direc != "O" and direc != "S":
+        direc = input((" O o S"))
+        if direc == "O":
+            sala5()
+        elif direc == "S":
+            sala3()
 
 
 def sala7():
@@ -338,11 +352,13 @@ def sala7():
         print("Estás en la sala 7")
         print("Ves puertas en el Este y Sur ")
         print("¿ En que dirección quieres ir ?")
-        direc = input((" E o S"))
-        if direc == "E":
-            sala8()
-        elif direc == "S":
-            sala4()
+        direc = ""
+        while direc != "E" and direc != "S":
+            direc = input((" E o S"))
+            if direc == "E":
+                sala8()
+            elif direc == "S":
+                sala4()
 
 
 def sala8():
@@ -358,17 +374,19 @@ def sala8():
         print("Estás en la sala 8")
         print("Ves puertas en el Oeste, Norte y Este ")
         print("¿ En que dirección quieres ir ?")
-        direc = input((" O, N o E"))
-        if direc == "E":
-            sala9()
-        elif direc == "O":
-            sala7()
-        elif direc == "N":
-            print("Sala del foso")
-            print("OOOOHHHHHH")
-            print("¡¡¡¡ CASPITA !!!!! He caído en un foso y me encuentro en la ENTRADA")
-            time.sleep(3)
-            entrada()
+        direc = ""
+        while direc != "N" and direc != "O" and direc != "E":
+            direc = input((" O, N o E"))
+            if direc == "E":
+                sala9()
+            elif direc == "O":
+                sala7()
+            elif direc == "N":
+                print("Sala del foso")
+                print("OOOOHHHHHH")
+                print("¡¡¡¡ CASPITA !!!!! He caído en un foso y me encuentro en la ENTRADA")
+                time.sleep(3)
+                entrada()
 
 
 def sala9():
@@ -377,11 +395,13 @@ def sala9():
     print("Estás en la sala 9")
     print("Ves puertas en el Oste y Norte ")
     print("¿ En que dirección quieres ir ?")
-    direc = input((" O o N"))
-    if direc == "O":
-        sala8()
-    elif direc == "N":
-        salaBOSS()
+    direc = ""
+    while direc != "N" and direc != "S":
+        direc = input((" S o N"))
+        if direc == "S":
+            sala8()
+        elif direc == "N":
+            salaBOSS()
 
 
 def salaBOSS():
@@ -398,6 +418,7 @@ def salaBOSS():
         BOSS()
     else:
         print("Esto es cosa de mayores... vuelve cuando estés preparado")
+        sala9()
 
 
 def llave():
@@ -477,6 +498,7 @@ clearConsole()
 for num in range(1, 5):
     time.sleep(1)
     if num % 2 == 0:
+        clearConsole()
         print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
         print("        X   X   X   X   X   X   X   X   ")
         print("        X   XXXXX   XXXXX   XXXXX   X   ")
@@ -492,6 +514,7 @@ for num in range(1, 5):
         print("    X      X     *   **   *     X       ")
         print("   / \     X     *   **   *     X       ")
     else:
+        clearConsole()
         print("       XXXXXX   XXXXX   XXXXX   XXXXXX  ")
         print("        X   X   X   X   X   X   X   X   ")
         print("        X   XXXXX   XXXXX   XXXXX   X   ")
