@@ -1,7 +1,6 @@
 import random
 import time
 import os
-from xml.dom.minidom import ReadOnlySequentialNamedNodeMap
 
 jugador = {}
 
